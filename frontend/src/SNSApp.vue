@@ -37,7 +37,7 @@
                     <v-list-item
                         class="px-2"
                         key="orders"
-                        to="/fronts/orders"
+                        to="/userOrderManagements/orders"
                         @click="changeUrl()"
                         color="primary"
                         style="font-weight:700;"
@@ -48,37 +48,25 @@
 
                     <v-list-item
                         class="px-2"
-                        key="orders"
-                        to="/stores/orders"
+                        key="riders"
+                        to="/riderManagements/riders"
                         @click="changeUrl()"
                         color="primary"
                         style="font-weight:700;"
                     >
-                        주문
+                        라이더
                     </v-list-item>
 
 
                     <v-list-item
                         class="px-2"
-                        key="orders"
-                        to="/riders/orders"
+                        key="menus"
+                        to="/storeManagements/menus"
                         @click="changeUrl()"
                         color="primary"
                         style="font-weight:700;"
                     >
-                        주문
-                    </v-list-item>
-
-
-                    <v-list-item
-                        class="px-2"
-                        key="orders"
-                        to="/customers/orders"
-                        @click="changeUrl()"
-                        color="primary"
-                        style="font-weight:700;"
-                    >
-                        주문
+                        메뉴
                     </v-list-item>
 
 
@@ -93,13 +81,13 @@
             <v-container style="padding:0px;" v-else fluid>
                 <div style="width:100%; margin:0px 0px 20px 0px; position: relative;">
                     <v-img style="width:100%; height:300px;"
-                        src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-IsZwoYj8yobpFySuytSuI26N/user-ha9EUDa76s1yoHT6JzgqOaFI/img-3AQBbCQiIk5ckDCfHt95I1DG.png?st=2023-07-11T23%3A41%3A31Z&se=2023-07-12T01%3A41%3A31Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-07-11T21%3A29%3A59Z&ske=2023-07-12T21%3A29%3A59Z&sks=b&skv=2021-08-06&sig=11qPCljpP//XHZCG9DMZ1ZmJIidIpfbeNS2sPZwQBh4%3D"
+                        src=""
                     ></v-img>
-                    <div class="App-main-text-overlap">음식배달서비스</div>
+                    <div class="App-main-text-overlap"></div>
                     <div class="App-sub-text-overlap"></div>
                 </div>
                 <v-row>
-                    <v-col cols="4" class="d-flex justify-center" v-for="(aggregate, index) in aggregates" :key="index">
+                    <v-col cols="4" class="d-flex justify-center" v-for="(aggregate, index) in aggregate" :key="index">
                         <div 
                             class="flip-card"
                             @mouseover="flipCard(index)"
@@ -114,7 +102,7 @@
                                         outlined
                                     >
                                         <v-list-item style="padding:15px; margin:0px;">
-                                            <v-img style="width:100%; height:120px; border-radius: 10px;" :src="ImageUrl"></v-img>
+                                            <v-img style="width:100%; height:120px; border-radius: 10px;" :src="aggregate.ImageUrl"></v-img>
                                         </v-list-item>
                                         <div style="text-align: left; padding:10px 15px 15px 15px; margin-top:-10px;">
                                             <h2>{{ aggregate.title }}</h2>
@@ -133,7 +121,7 @@
                                         @click="changeUrl()"
                                     >
                                         <v-list-item style="padding:15px; margin:0px;">
-                                            <v-img style="height:120px; border-radius: 10px;" :src="ImageUrl"></v-img>
+                                            <v-img style="width:100%; height:120px; border-radius: 10px;" :src="aggregate.ImageUrl"></v-img>
                                         </v-list-item>
                                         <h2 style="color:white;">{{ aggregate.title }} 관리</h2>
                                     </v-card>
@@ -158,31 +146,28 @@ export default {
         sideBar: true,
         urlPath: null,
         flipped: [],
-        ImageUrl: 'https://oaidalleapiprodscus.blob.core.windows.net/private/org-IsZwoYj8yobpFySuytSuI26N/user-ha9EUDa76s1yoHT6JzgqOaFI/img-3AQBbCQiIk5ckDCfHt95I1DG.png?st=2023-07-11T23%3A41%3A31Z&se=2023-07-12T01%3A41%3A31Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-07-11T21%3A29%3A59Z&ske=2023-07-12T21%3A29%3A59Z&sks=b&skv=2021-08-06&sig=11qPCljpP//XHZCG9DMZ1ZmJIidIpfbeNS2sPZwQBh4%3D'
-        aggregates: [
+        ImageUrl: '',
+        aggregate: [
             { 
                 title: '주문', 
-                description: '고객이 메뉴를 선택하고 주문하는 과정을 담당하는 주문 액터', 
+                description: '주문에 관한 상태와 세부 정보를 포함하는 주문 도메인', 
                 key: 'orders', 
-                route: '/fronts/orders',
+                route: '/userOrderManagements/orders',
+                ImageUrl: '',
             },
             { 
-                title: '주문', 
-                description: '주문을 수락하고 거절하는 상점 액터', 
-                key: 'orders', 
-                route: '/stores/orders',
+                title: '라이더', 
+                description: '라이더에 관한 상태와 세부 정보를 포함하는 라이더 도메인', 
+                key: 'riders', 
+                route: '/riderManagements/riders',
+                ImageUrl: '',
             },
             { 
-                title: '주문', 
-                description: '주문을 배송하고 완료하는 라이더 액터', 
-                key: 'orders', 
-                route: '/riders/orders',
-            },
-            { 
-                title: '주문', 
-                description: '고객이 주문을 취소하는 액터', 
-                key: 'orders', 
-                route: '/customers/orders',
+                title: '메뉴', 
+                description: '가게 메뉴와 관련된 정보를 포함하는 메뉴 도메인', 
+                key: 'menus', 
+                route: '/storeManagements/menus',
+                ImageUrl: '',
             },
             
         ],

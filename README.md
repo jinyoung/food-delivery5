@@ -1,7 +1,7 @@
 # 
 
 ## Model
-www.msaez.io/#/storming/4db0d968-1f5a-a30d-6643-1b4c8b5be904
+www.msaez.io/#/storming/food-delivery
 
 ## Before Running Services
 ### Make sure there is a Kafka server running
@@ -11,7 +11,7 @@ docker-compose up
 ```
 - Check the Kafka messages:
 ```
-cd kafka
+cd infra
 docker-compose exec -it kafka /bin/bash
 cd /bin
 ./kafka-console-consumer --bootstrap-server localhost:9092 --topic
@@ -20,10 +20,9 @@ cd /bin
 ## Run the backend micro-services
 See the README.md files inside the each microservices directory:
 
-- front
-- store
-- rider
-- customer
+- user-order-management
+- rider-management
+- store-management
 
 
 ## Run API Gateway (Spring Gateway)
@@ -33,21 +32,17 @@ mvn spring-boot:run
 ```
 
 ## Test by API
-- front
+- user-order-management
 ```
- http :8088/orders orderId="orderId" menu="menu" payment="payment" status="status" 
+ http :8088/orders orderId="orderId" foodSelection="foodSelection" quantity="quantity" specialRequest="specialRequest" deliveryAddress="deliveryAddress" paymentMethod="paymentMethod" paymentMethodType="paymentMethodType" orderAmount="orderAmount" orderStatus="orderStatus" estimatedDeliveryTime="estimatedDeliveryTime" 
 ```
-- store
+- rider-management
 ```
- http :8088/orders orderId="orderId" status="status" 
+ http :8088/riders riderId="riderId" riderName="riderName" riderStatus="riderStatus" 
 ```
-- rider
+- store-management
 ```
- http :8088/orders orderId="orderId" status="status" 
-```
-- customer
-```
- http :8088/orders orderId="orderId" status="status" 
+ http :8088/menus menuId="menuId" menuName="menuName" price="price" stockStatus="stockStatus" availability="availability" 
 ```
 
 

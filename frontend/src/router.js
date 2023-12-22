@@ -5,17 +5,14 @@ import Router from 'vue-router'
 Vue.use(Router);
 
 
-import FrontOrderManager from "./components/listers/FrontOrderCards"
-import FrontOrderDetail from "./components/listers/FrontOrderDetail"
+import UserOrderManagementOrderManager from "./components/listers/UserOrderManagementOrderCards"
+import UserOrderManagementOrderDetail from "./components/listers/UserOrderManagementOrderDetail"
 
-import StoreOrderManager from "./components/listers/StoreOrderCards"
-import StoreOrderDetail from "./components/listers/StoreOrderDetail"
+import RiderManagementRiderManager from "./components/listers/RiderManagementRiderCards"
+import RiderManagementRiderDetail from "./components/listers/RiderManagementRiderDetail"
 
-import RiderOrderManager from "./components/listers/RiderOrderCards"
-import RiderOrderDetail from "./components/listers/RiderOrderDetail"
-
-import CustomerOrderManager from "./components/listers/CustomerOrderCards"
-import CustomerOrderDetail from "./components/listers/CustomerOrderDetail"
+import StoreManagementMenuManager from "./components/listers/StoreManagementMenuCards"
+import StoreManagementMenuDetail from "./components/listers/StoreManagementMenuDetail"
 
 
 export default new Router({
@@ -23,47 +20,36 @@ export default new Router({
     base: process.env.BASE_URL,
     routes: [
             {
-                path: '/fronts/orders',
-                name: 'FrontOrderManager',
-                component: FrontOrderManager
+                path: '/userOrderManagements/orders',
+                name: 'UserOrderManagementOrderManager',
+                component: UserOrderManagementOrderManager
             },
             {
-                path: '/fronts/orders/:id',
-                name: 'FrontOrderDetail',
-                component: FrontOrderDetail
-            },
-
-            {
-                path: '/stores/orders',
-                name: 'StoreOrderManager',
-                component: StoreOrderManager
-            },
-            {
-                path: '/stores/orders/:id',
-                name: 'StoreOrderDetail',
-                component: StoreOrderDetail
+                path: '/userOrderManagements/orders/:id',
+                name: 'UserOrderManagementOrderDetail',
+                component: UserOrderManagementOrderDetail
             },
 
             {
-                path: '/riders/orders',
-                name: 'RiderOrderManager',
-                component: RiderOrderManager
+                path: '/riderManagements/riders',
+                name: 'RiderManagementRiderManager',
+                component: RiderManagementRiderManager
             },
             {
-                path: '/riders/orders/:id',
-                name: 'RiderOrderDetail',
-                component: RiderOrderDetail
+                path: '/riderManagements/riders/:id',
+                name: 'RiderManagementRiderDetail',
+                component: RiderManagementRiderDetail
             },
 
             {
-                path: '/customers/orders',
-                name: 'CustomerOrderManager',
-                component: CustomerOrderManager
+                path: '/storeManagements/menus',
+                name: 'StoreManagementMenuManager',
+                component: StoreManagementMenuManager
             },
             {
-                path: '/customers/orders/:id',
-                name: 'CustomerOrderDetail',
-                component: CustomerOrderDetail
+                path: '/storeManagements/menus/:id',
+                name: 'StoreManagementMenuDetail',
+                component: StoreManagementMenuDetail
             },
 
 
