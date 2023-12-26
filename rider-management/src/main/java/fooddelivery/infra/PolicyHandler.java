@@ -32,16 +32,10 @@ public class PolicyHandler {
         System.out.println(
             "\n\n##### listener OrderPlacedPolicy : " + orderPlaced + "\n\n"
         );
-
-        Rider rider = new Rider();
-        rider.setRiderId("1");
-        rider.setRiderName("Rider1");
-        rider.setRiderStatus("Ready");
-        riderRepository.save(rider);
-
-        OrderAssigned orderAssigned = new OrderAssigned();
-        orderAssigned.setRiderId(rider.getRiderId());
-        orderAssigned.setOrderId(event.getOrderId());
-        orderAssigned.publishAfterCommit();
+        Rider rider = Rider
+            .repository()
+            .findById(orderPlaced.getRiderId())
+            .get();
+        rider.handleOrderPlaced(orderPlaced);
     }
 }

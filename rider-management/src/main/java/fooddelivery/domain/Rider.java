@@ -11,7 +11,6 @@ import lombok.Data;
 @Entity
 @Table(name = "Rider_table")
 @Data
-//<<< DDD / Aggregate Root
 public class Rider {
 
     @Id
@@ -31,13 +30,16 @@ public class Rider {
     public void onPrePersist() {}
 
     public static RiderRepository repository() {
-        RiderRepository riderRepository = RiderManagementApplication.applicationContext.getBean(
+        RideryRepository riderRepository = RiderManagementApplication.applicationContext.getBean(
             RiderRepository.class
         );
         return riderRepository;
     }
 
-    //<<< Clean Arch / Port Method
+    public void handleOrderPlaced(OrderPlaced orderPlaced) {
+        // 여기에 OrderPlaced 이벤트 처리 로직을 추가합니다.
+    }
+
     public void markDeliveryCompleted(
         MarkDeliveryCompletedCommand markDeliveryCompletedCommand
     ) {
@@ -45,10 +47,5 @@ public class Rider {
 
         DeliveryCompleted deliveryCompleted = new DeliveryCompleted(this);
         deliveryCompleted.publishAfterCommit();
-
-        this.riderStatus = "DELIVERY_COMPLETED";
     }
-    //>>> Clean Arch / Port Method
-
 }
-//>>> DDD / Aggregate Root
