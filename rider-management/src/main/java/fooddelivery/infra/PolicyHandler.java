@@ -28,8 +28,11 @@ public class PolicyHandler {
             "\n\n##### listener OrderPlacedPolicy : " + orderPlaced + "\n\n"
         );
 
-        Rider rider = riderRepository.findById("1").get();
-        rider.setRiderId(event.getOrderId());
-        riderRepository.save(rider);
+        Optional<Rider> optionalRider = riderRepository.findById("1");
+        if (optionalRider.isPresent()) {
+            Rider rider = optionalRider.get();
+            rider.setRiderId(event.getOrderId());
+            riderRepository.save(rider);
+        }
     }
 }
