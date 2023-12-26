@@ -30,7 +30,7 @@ public class Rider {
     public void onPrePersist() {}
 
     public static RiderRepository repository() {
-        RideryRepository riderRepository = RiderManagementApplication.applicationContext.getBean(
+        RiderRepository riderRepository = RiderManagementApplication.applicationContext.getBean(
             RiderRepository.class
         );
         return riderRepository;

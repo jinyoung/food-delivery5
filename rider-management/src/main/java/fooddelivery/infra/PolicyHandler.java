@@ -32,10 +32,7 @@ public class PolicyHandler {
         System.out.println(
             "\n\n##### listener OrderPlacedPolicy : " + orderPlaced + "\n\n"
         );
-        Rider rider = Rider
-            .repository()
-            .findById(orderPlaced.getRiderId())
-            .get();
+        Rider rider = riderRepository.findById(orderPlaced.getOrderId()).get();
         rider.handleOrderPlaced(orderPlaced);
     }
 }
