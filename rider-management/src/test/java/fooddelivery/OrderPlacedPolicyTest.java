@@ -58,6 +58,10 @@ public class OrderPlacedPolicyTest {
         event.setOrderId("1");
         event.setFoodSelection("피자");
         event.setQuantity("5");
+        event.setSpecialRequest("N/A");
+        event.setDeliveryAddress("N/A");
+        event.setPaymentMethod("N/A");
+        event.setOrderAmount("N/A");
 
         InventoryApplication.applicationContext = applicationContext;
 
