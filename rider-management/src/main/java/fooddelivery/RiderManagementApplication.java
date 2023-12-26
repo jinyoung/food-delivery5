@@ -14,6 +14,10 @@ public class RiderManagementApplication {
 
     public static ApplicationContext applicationContext;
 
+    public RiderManagementApplication(ApplicationContext applicationContext) {
+        RiderManagementApplication.applicationContext = applicationContext;
+    }
+
     public static void main(String[] args) {
         applicationContext =
             SpringApplication.run(RiderManagementApplication.class, args);
