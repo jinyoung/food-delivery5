@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fooddelivery.config.kafka.KafkaProcessor;
 import fooddelivery.domain.*;
 import javax.naming.NameParser;
+import javax.naming.NameParser;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -19,12 +20,6 @@ public class PolicyHandler {
     RiderRepository riderRepository;
 
     @StreamListener(KafkaProcessor.INPUT)
-    public void whatever(@Payload String eventString) {}
-
-    @StreamListener(
-        value = KafkaProcessor.INPUT,
-        condition = "headers['type']=='OrderPlaced'"
-    )
     public void wheneverOrderPlaced_OrderPlacedPolicy(
         @Payload OrderPlaced orderPlaced
     ) {
@@ -32,7 +27,9 @@ public class PolicyHandler {
         System.out.println(
             "\n\n##### listener OrderPlacedPolicy : " + orderPlaced + "\n\n"
         );
-        Rider rider = riderRepository.findById(orderPlaced.getOrderId()).get();
-        rider.handleOrderPlaced(orderPlaced);
+
+        Rider rider = riderRepository.findById("1").get();
+        rider.setRiderId(event.getOrderId());
+        riderRepository.save(rider);
     }
 }

@@ -11,6 +11,7 @@ import lombok.Data;
 @Entity
 @Table(name = "Rider_table")
 @Data
+//<<< DDD / Aggregate Root
 public class Rider {
 
     @Id
@@ -36,10 +37,7 @@ public class Rider {
         return riderRepository;
     }
 
-    public void handleOrderPlaced(OrderPlaced orderPlaced) {
-        // 여기에 OrderPlaced 이벤트 처리 로직을 추가합니다.
-    }
-
+    //<<< Clean Arch / Port Method
     public void markDeliveryCompleted(
         MarkDeliveryCompletedCommand markDeliveryCompletedCommand
     ) {
@@ -48,4 +46,7 @@ public class Rider {
         DeliveryCompleted deliveryCompleted = new DeliveryCompleted(this);
         deliveryCompleted.publishAfterCommit();
     }
+    //>>> Clean Arch / Port Method
+
 }
+//>>> DDD / Aggregate Root

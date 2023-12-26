@@ -27,23 +27,76 @@ import org.springframework.util.MimeTypeUtils;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class OrderPlacedPolicyTest {
 
-private static final Logger LOGGER = LoggerFactory.getLogger(OrderPlacedPolicyTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+        EventTest.class
+    );
 
-@Autowired
-private KafkaProcessor processor;
+    @Autowired
+    private KafkaProcessor processor;
 
-@Autowired
-private MessageCollector messageCollector;
+    @Autowired
+    private MessageCollector messageCollector;
 
-@Autowired
-private ApplicationContext applicationContext;
+    @Autowired
+    private ApplicationContext applicationContext;
 
-@Autowired
-private RiderRepository riderRepository;
+    @Test
+    @SuppressWarnings("unchecked")
+    public void test0() {
+        //given:
 
-@Test
-@SuppressWarnings("unchecked")
-public void test0() {
-//given:
+        entity.setRiderId("N/A");
+        entity.setRiderName("N/A");
+        entity.setRiderStatus("N/A");
 
-Rider entity
+        repository.save(entity);
+
+        //when:
+
+        OrderPlaced event = new OrderPlaced();
+
+        event.setOrderId("1");
+        event.setFoodSelection("피자");
+        event.setQuantity("5");
+        event.setSpecialRequest("N/A");
+        event.setDeliveryAddress("N/A");
+        event.setPaymentMethod("N/A");
+        event.setOrderAmount("N/A");
+
+        InventoryApplication.applicationContext = applicationContext;
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            String msg = objectMapper.writeValueAsString(event);
+
+            processor
+                .inboundTopic()
+                .send(
+                    MessageBuilder
+                        .withPayload(msg)
+                        .setHeader(
+                            MessageHeaders.CONTENT_TYPE,
+                            MimeTypeUtils.APPLICATION_JSON
+                        )
+                        .setHeader("type", event.getEventType())
+                        .build()
+                );
+
+            //then:
+
+            Message<String> received = (Message<String>) messageCollector
+                .forChannel(processor.outboundTopic())
+                .poll();
+
+            assertNotNull("Resulted event must be published", received);
+
+            LOGGER.info("Response received: {}", received.getPayload());
+
+            assertEquals(outputEvent.getOrderId(), "1");
+            assertEquals(outputEvent.getRiderId(), "1");
+        } catch (JsonProcessingException e) {
+            // TODO Auto-generated catch block
+            assertTrue("exception", false);
+        }
+    }
+}
