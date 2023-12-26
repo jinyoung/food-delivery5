@@ -4,17 +4,17 @@ import Vuetify from 'vuetify/lib/framework';
 Vue.use(Vuetify);
 
 const themeColors = {
-    surface:'#E8F5E9',
-    mainText:'#212121',
-    secondaryText:'#757575',
-    primary: '#FFC107',
+    surface:'',
+    mainText:'',
+    secondaryText:'',
+    primary: '',
     'primary-darken-1': '',
     secondary: '',
-    'secondary-darken-1': '#FFA000',
-    info: '#2196F3',
-    error: '#F44336',
-    warning: '#FF5722',
-    success: '#4CAF50',
+    'secondary-darken-1': '',
+    info: '',
+    error: '',
+    warning: '',
+    success: '',
 };
 
 const defaultColors = {

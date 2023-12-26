@@ -5,6 +5,11 @@
         </v-card-title>
 
         <v-card-text>
+            <String label="FoodSelection" v-model="value.foodSelection" :editMode="editMode"/>
+            <Number label="Quantity" v-model="value.quantity" :editMode="editMode"/>
+            <String label="SpecialRequest" v-model="value.specialRequest" :editMode="editMode"/>
+            <Address offline label="DeliveryAddress" v-model="value.deliveryAddress" :editMode="editMode" @change="change"/>
+            <String label="PaymentMethod" v-model="value.paymentMethod" :editMode="editMode"/>
         </v-card-text>
 
         <v-card-actions>
@@ -40,6 +45,11 @@
             value: {},
         }),
         created() {
+            this.value.foodSelection = '';
+            this.value.quantity = 0;
+            this.value.specialRequest = '';
+            this.value.deliveryAddress = {};
+            this.value.paymentMethod = '';
         },
         watch: {
         },

@@ -29,48 +29,37 @@ jobs:
       
       - name: Build Maven Projects
         run: |
-          mvn clean package -f ./front/pom.xml
-          mvn clean package -f ./store/pom.xml
-          mvn clean package -f ./rider/pom.xml
-          mvn clean package -f ./customer/pom.xml
+          mvn clean package -f ./user-order-management/pom.xml
+          mvn clean package -f ./rider-management/pom.xml
+          mvn clean package -f ./store-management/pom.xml
 
-      - name: Docker Build and push for Front
+      - name: Docker Build and push for UserOrderManagement
         uses: docker/build-push-action@v4
         with:
-          context: ./front
+          context: ./user-order-management
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}/front:latest
-            ghcr.io/${{ github.repository }}/front:${{ github.ref_name }}
+            ghcr.io/${{ github.repository }}/user-order-management:latest
+            ghcr.io/${{ github.repository }}/user-order-management:${{ github.ref_name }}
             
-      - name: Docker Build and push for Store
+      - name: Docker Build and push for RiderManagement
         uses: docker/build-push-action@v4
         with:
-          context: ./store
+          context: ./rider-management
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}/store:latest
-            ghcr.io/${{ github.repository }}/store:${{ github.ref_name }}
+            ghcr.io/${{ github.repository }}/rider-management:latest
+            ghcr.io/${{ github.repository }}/rider-management:${{ github.ref_name }}
             
-      - name: Docker Build and push for Rider
+      - name: Docker Build and push for StoreManagement
         uses: docker/build-push-action@v4
         with:
-          context: ./rider
+          context: ./store-management
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}/rider:latest
-            ghcr.io/${{ github.repository }}/rider:${{ github.ref_name }}
-            
-      - name: Docker Build and push for Customer
-        uses: docker/build-push-action@v4
-        with:
-          context: ./customer
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: |
-            ghcr.io/${{ github.repository }}/customer:latest
-            ghcr.io/${{ github.repository }}/customer:${{ github.ref_name }}
+            ghcr.io/${{ github.repository }}/store-management:latest
+            ghcr.io/${{ github.repository }}/store-management:${{ github.ref_name }}
             

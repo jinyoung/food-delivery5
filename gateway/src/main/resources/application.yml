@@ -7,27 +7,25 @@ spring:
   profiles: default
   cloud:
     gateway:
+#<<< API Gateway / Routes
       routes:
-        - id: front
-          uri: http://localhost:8081
-          predicates:
-            - Path=/orders/**, 
-        - id: store
+        - id: user-order-management
           uri: http://localhost:8082
           predicates:
             - Path=/orders/**, 
-        - id: rider
+        - id: rider-management
           uri: http://localhost:8083
           predicates:
-            - Path=/orders/**, 
-        - id: customer
+            - Path=/riders/**, 
+        - id: store-management
           uri: http://localhost:8084
           predicates:
-            - Path=/orders/**, 
+            - Path=/menus/**, 
         - id: frontend
           uri: http://localhost:8080
           predicates:
             - Path=/**
+#>>> API Gateway / Routes
       globalcors:
         corsConfigurations:
           '[/**]':
@@ -47,22 +45,18 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: front
-          uri: http://front:8080
+        - id: user-order-management
+          uri: http://userOrderManagement:8080
           predicates:
             - Path=/orders/**, 
-        - id: store
-          uri: http://store:8080
+        - id: rider-management
+          uri: http://riderManagement:8080
           predicates:
-            - Path=/orders/**, 
-        - id: rider
-          uri: http://rider:8080
+            - Path=/riders/**, 
+        - id: store-management
+          uri: http://storeManagement:8080
           predicates:
-            - Path=/orders/**, 
-        - id: customer
-          uri: http://customer:8080
-          predicates:
-            - Path=/orders/**, 
+            - Path=/menus/**, 
         - id: frontend
           uri: http://frontend:8080
           predicates:
